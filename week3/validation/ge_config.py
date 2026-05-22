@@ -12,7 +12,7 @@ def validate_data(data_path: str, baseline_path: str = None) -> dict:
     """
     Validate data against expectations.
 
-    TODO: Define expectations based on the 4+ quality issues you found.
+    TODO: Define expectations based on the 2 or more quality issues you found.
     """
     df = pd.read_parquet(data_path)
     ge_df = PandasDataset(df)

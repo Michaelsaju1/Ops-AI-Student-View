@@ -22,7 +22,7 @@ Add automated data quality validation to your Week 2 deployed API. New upstream 
 - `validation/check_data_quality.py` - validation functions
 - Updated `data.py` - graceful degradation
 - Tests - verify validation works
-- **Report:**
+- A **Report:** which claarifies the following (and any other points of your choosing):
   - Issues found + impact
   - Validation schedule choice + justification
   - Graceful degradation strategy
@@ -44,7 +44,7 @@ week3/
 │   └── demand_enriched_corrupted.parquet  (Jan 16-Feb 1, dirty)
 ├── validation/
 │   ├── ge_config.py          (Great Expectations starter)
-│   ├── check_data_quality_template.py    (TEMPLATE: Implement 4+ validation checks)
+│   ├── check_data_quality_template.py    (TEMPLATE: Implement validation checks)
 │   └── test_data_quality_template.py     (TEMPLATE: Write tests)
 └── README.md (this file)
 ```
@@ -102,7 +102,7 @@ Then move to Part 2.
 
 ## Part 2: Identify Data Quality Issues
 
-Load both parquet files and find 4+ issues that would break the model.
+Load both parquet files and find at least 2 issues that would break the model.
 
 ### Load Data
 
@@ -148,7 +148,7 @@ Create `validation/check_data_quality.py` with functions to detect each issue:
 def validate_data(df: pd.DataFrame, baseline_df: pd.DataFrame) -> dict:
     """Check data quality. Return {is_valid: bool, issues: list}"""
     issues = []
-    # TODO: Check for each of your 4+ issues
+    # TODO: Check for each of your issues
     return {
         'is_valid': len(issues) == 0,
         'issues': issues
@@ -226,14 +226,14 @@ def load_and_validate_data(path: str, baseline_data: pd.DataFrame):
 
 Create `validation/test_data_quality.py`:
 - Baseline data should pass validation
-- Corrupted data should fail (detect 4+ issues)
+- Corrupted data should fail (there are at least 4 issues, detect at least 2)
 - Test each issue separately
 - Test that API doesn't crash with bad data
 
 ## Part 6: Report
 
 **Summary of Issues & Strategy**
-- List 4+ issues found in corrupted data (what, how many rows, impact)
+- List at least 2 issues found in corrupted data (what, how many rows, impact)
 - Your validation schedule choice (15min/hourly/daily?) + brief justification (cost vs detection speed)
 - How API gracefully degrades on bad data (drop rows? fill nulls? fallback to baseline?)
 
@@ -255,7 +255,7 @@ Create `validation/test_data_quality.py`:
 
 | Criterion | Weight |
 |-----------|--------|
-| Issues identified and documented | 30% |
+| At least 2 issues identified and documented | 30% |
 | Validation code works correctly | 25% |
 | Graceful degradation (API handles bad data) | 20% |
 | Tests verify validation works | 15% |

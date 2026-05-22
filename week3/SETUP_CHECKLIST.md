@@ -21,11 +21,9 @@
   - Data types
   - Unique values for categorical fields
   
-- [ ] Document 4+ distinct issues found:
+- [ ] Document at least 2 distinct issues found:
   - [ ] Issue 1: __________ (affected rows: ____)
   - [ ] Issue 2: __________ (affected rows: ____)
-  - [ ] Issue 3: __________ (affected rows: ____)
-  - [ ] Issue 4: __________ (affected rows: ____)
 
 - [ ] For each issue, note:
   - What is wrong (specific problem)
@@ -36,7 +34,7 @@
 ## Part 2: Build Validation
 
 - [ ] Create `week3/validation/check_data_quality.py`
-  - Write functions to detect each of your 4+ issues
+  - Write functions to detect each of your 2 or more issues
   - Return structured results (which rows/columns failed)
   
 - [ ] Test your validation against both datasets:
