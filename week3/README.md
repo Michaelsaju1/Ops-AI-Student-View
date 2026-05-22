@@ -22,7 +22,7 @@ Add automated data quality validation to your Week 2 deployed API. New upstream 
 - `validation/check_data_quality.py` - validation functions
 - Updated `data.py` - graceful degradation
 - Tests - verify validation works
-- **Report (1 page max):**
+- **Report:**
   - Issues found + impact
   - Validation schedule choice + justification
   - Graceful degradation strategy
@@ -230,7 +230,7 @@ Create `validation/test_data_quality.py`:
 - Test each issue separately
 - Test that API doesn't crash with bad data
 
-## Part 6: Report (1 page MAX)
+## Part 6: Report
 
 **Summary of Issues & Strategy**
 - List 4+ issues found in corrupted data (what, how many rows, impact)
@@ -259,7 +259,7 @@ Create `validation/test_data_quality.py`:
 | Validation code works correctly | 25% |
 | Graceful degradation (API handles bad data) | 20% |
 | Tests verify validation works | 15% |
-| Report (clear, 1 page max) | 10% |
+| Report (clear and logical) | 10% |
 
 ---
 

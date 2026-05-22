@@ -62,19 +62,16 @@
 
 - [ ] Run tests: `python -m pytest week3/validation/test_data_quality.py -v`
 
-## Part 5: Combined Report (3 pages max)
+## Part 5: Combined Report
 
-Write single report:
-- [ ] Page 1: Issues found (what, how many rows, why it matters)
-- [ ] Page 2: Validation approach + graceful degradation (how you fix each issue)
-- [ ] Page 3: Strategy (where validation runs, monitoring, trade-offs)
+Write a single report. Below is a suggested structure, but you are free to change this:
+- [ ] Part 1: Issues found (what, how many rows, why it matters)
+- [ ] Part 2: Validation approach + graceful degradation (how you fix each issue)
+- [ ] Part 3: Strategy (where validation runs, monitoring, trade-offs)
 
 ## Deliverables Checklist
 
 - [ ] `week3/validation/check_data_quality.py` - validation code
 - [ ] `week3/validation/test_data_quality.py` - tests
 - [ ] `week3/backend/data.py` - graceful degradation
-- [ ] `REPORT.md` or `REPORT.pdf` (3 pages max):
-  - Page 1: Issues identified
-  - Page 2: Validation approach + fallbacks
-  - Page 3: Strategy & trade-offs
+- [ ] `REPORT.md` or `REPORT.pdf` with a logical structure and enough explanation of Issues identified, Validation approach + fallbacks, and Strategy & trade-offs
