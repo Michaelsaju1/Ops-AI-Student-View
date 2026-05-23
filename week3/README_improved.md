@@ -43,7 +43,7 @@ week3/
 │   ├── demand_enriched_baseline.parquet   (Jan 1-15, clean)
 │   └── demand_enriched_corrupted.parquet  (Jan 16-Feb 1, dirty)
 ├── validation/
-│   ├── ge_config.py          (Great Expectations starter)
+│   ├── __init__.py          (makes validation/ a Python package)
 │   ├── check_data_quality_template.py    (TEMPLATE: Implement validation checks)
 │   └── test_data_quality_template.py     (TEMPLATE: Write tests)
 └── README.md (this file)
@@ -140,7 +140,7 @@ For each issue, note:
 
 ---
 
-## Part 2: Write Validation Code
+## Part 3: Write Validation Code
 
 Create `validation/check_data_quality.py` with functions to detect each issue:
 
@@ -159,7 +159,7 @@ This code will be called by your CI/CD workflow.
 
 ---
 
-## Part 3: Add Validation Workflow
+## Part 4: Add Validation Workflow
 
 Create `.github/workflows/validate-data.yml` to run validation on schedule.
 
@@ -199,7 +199,7 @@ jobs:
 
 ---
 
-## Part 4: Implement Graceful Degradation
+## Part 5: Implement Graceful Degradation
 
 Modify `week3/backend/data.py`:
 
@@ -222,7 +222,7 @@ def load_and_validate_data(path: str, baseline_data: pd.DataFrame):
 
 **Key:** API must continue running. Log what degraded so operators know.
 
-## Part 5: Write Tests
+## Part 6: Write Tests
 
 Create `validation/test_data_quality.py`:
 - Baseline data should pass validation
@@ -230,7 +230,7 @@ Create `validation/test_data_quality.py`:
 - Test each issue separately
 - Test that API doesn't crash with bad data
 
-## Part 6: Report
+## Part 7: Report
 
 **Summary of Issues & Strategy**
 - List at least 2 issues found in corrupted data (what, how many rows, impact)
