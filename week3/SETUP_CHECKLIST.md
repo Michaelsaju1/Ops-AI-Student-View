@@ -4,12 +4,7 @@
 
 - [ ] Read READING.md (context on data quality)
 - [ ] Install dependencies: `pip install pandas numpy pytest pyarrow`
-- [ ] Set up Git LFS and pull data:
-  ```bash
-  git lfs install
-  git lfs pull
-  ls -lh week3/data/*.parquet  # Verify files are MB, not KB
-  ```
+- [ ] Verify data files are downloaded: `ls -lh week3/data/*.parquet` (should show MB, not bytes)
 
 ## Part 1: Identify Issues
 

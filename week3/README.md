@@ -64,31 +64,18 @@ You have a template `.github/workflows/validate-data.yml`. Fill in the TODOs:
 
 ---
 
-## Setup: Install Git LFS
+## Setup: Pull from GitHub
 
-The parquet files are stored with Git LFS. After cloning:
+Clone the course GitHub repository which has now removed LFS tracking. After cloning, verify the parquet files are downloaded correctly:
 
 ```bash
-# Install Git LFS
-brew install git-lfs  # macOS
-apt-get install git-lfs  # Linux
-
-# One-time setup (first time only)
-git lfs install
-
-# Pull actual files from LFS
-git lfs pull
-
-# Verify files are downloaded (should show MB, not KB)
+# Should show file sizes in MB, not bytes
 ls -lh week3/data/*.parquet
 ```
 
-If files show `version https://git-lfs.github.com/3` or `oid sha256:...`, LFS didn't pull. Run `git lfs pull` again.
+If the files are missing or very small (a few hundred bytes), re-clone the repository. You should now receive all files, including datasets, directly without LFS pointers. 
 
-**Troubleshooting:**
-- `git lfs pull` takes a minute or two (74MB of data)
-- Requires internet connection
-- If still having issues, run: `git lfs install --force` then `git lfs pull`
+**IMPORTANT: Do not upload these datasets to your own GitHub repo with solutions. It is not recommended to upload large files to GitHub.** While there is no explicit penalty for uploading these at the moment, your code will raise warnings if you try pushing these large files directly to GitHub.
 
 ---
 
@@ -198,7 +185,7 @@ jobs:
   validate:
     runs-on: ubuntu-latest
     steps:
-      - uses: actions/checkout@v3
+      - uses: actions/checkout@v4
       - run: python -m validation.check_data_quality week3/data/
       - if: failure()
         run: |
