@@ -18,14 +18,14 @@ import numpy as np
 @pytest.fixture
 def baseline_data():
     """Load clean baseline data."""
-    # TODO: Load from week3/data/demand_enriched_baseline.parquet
+    # TODO: Load your clean baseline dataframe.
     pass
 
 
 @pytest.fixture
 def corrupted_data():
     """Load corrupted data."""
-    # TODO: Load from week3/data/demand_enriched_corrupted.parquet
+    # TODO: Load your corrupted dataframe.
     pass
 
 

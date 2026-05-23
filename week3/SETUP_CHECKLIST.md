@@ -3,7 +3,7 @@
 ## Before Starting
 
 - [ ] Read READING.md (context on data quality)
-- [ ] Install dependencies: `pip install great_expectations pandas numpy pytest`
+- [ ] Install dependencies: `pip install pandas numpy pytest pyarrow`
 - [ ] Set up Git LFS and pull data:
   ```bash
   git lfs install
