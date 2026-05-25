@@ -26,6 +26,10 @@ COPY --from=builder /usr/local/bin /usr/local/bin
 COPY week2/backend/ .
 COPY week2/metadata /metadata
 RUN mkdir -p /data/processed /app/frontend/public
+COPY week2/data/demand_enriched.parquet /data/processed/
+COPY week2/model/lgbm_demand_model.txt /data/processed/
+COPY week2/backend/zone_hour_avg_fare.parquet /data/processed/
+COPY week2/backend/taxi_zones.geojson /app/frontend/public/
 
 # Health check: Kubernetes will call this periodically
 # Goal: verify model is loaded and can handle requests
