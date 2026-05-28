@@ -11,11 +11,14 @@ from datetime import datetime, timedelta
 import json
 import requests
 from functools import lru_cache
+import logging
+from validation.check_data_quality import DataQualityValidator
 
 _ROOT = Path(__file__).parent.parent.parent
 DATA_PATH = _ROOT / "week2" / "data" / "processed" / "demand_enriched.parquet"
 LOOKUP_PATH = _ROOT / "week2" / "metadata" / "Lookups" / "taxi_zone_lookup.csv"
 MODEL_PATH = _ROOT / "week2" / "data" / "processed" / "lgbm_demand_model.txt"
+CORRUPTED_DATA_PATH = _ROOT / "week3" / "data" / "demand_enriched_corrupted.parquet"
 
 # Fixed reference point: end of 2nd week in Feb 2026 (the latest complete month)
 # Data before this date is actual; from this point forward uses model predictions
@@ -41,6 +44,7 @@ HOLIDAYS = {
     (12, 31): "New Year's Eve",
 }
 
+logger = logging.getLogger(__name__)
 
 def _identify_holiday(date: pd.Timestamp) -> str:
     """Identify holiday name from date, or return 'regular'."""
@@ -188,7 +192,6 @@ _profile, _zones_df = _load()
 _zone_map = _zones_df.set_index("zone_id").to_dict("index")
 _lgbm_model = _load_model()
 _full_demand = _load_full_demand() if _lgbm_model else None
-
 
 # ── Zone-Hour Average Fares (for realistic earnings estimates) ─────────────────
 
@@ -1345,3 +1348,49 @@ def get_forecast_heatmap(hours_ahead: int = 0) -> dict:
         "hours_ahead": hours_ahead,
         "is_forecast": True,
     }
+
+def check_and_log_data_quality():
+    """Run validation on incoming corrupted data and log any issues.
+
+    Called at startup so operators see data problems in the logs immediately,
+    rather than waiting for predictions to silently degrade. Wrapped in
+    try/except so a validation crash can never prevent the API from booting.
+    """
+    try:
+        if not CORRUPTED_DATA_PATH.exists():
+            logger.info(
+                "Data quality check skipped: %s not present", CORRUPTED_DATA_PATH
+            )
+            return
+
+        df = pd.read_parquet(CORRUPTED_DATA_PATH)
+
+        # Split on the Jan 16, 2026 cutoff so the validator has a clean baseline
+        # to compare against (matches the assignment's diff methodology).
+        CUTOFF = pd.Timestamp("2026-01-16")
+        baseline_df = df[df["time_bucket"] < CUTOFF]
+        incoming_df = df[df["time_bucket"] >= CUTOFF]
+
+        validator = DataQualityValidator(baseline_df=baseline_df)
+        result = validator.validate(incoming_df)
+
+        if not result["is_valid"]:
+            logger.warning(
+                "Data quality issues detected: %d issue(s) found.",
+                result["num_issues"],
+            )
+            for issue in result["issues"]:
+                logger.warning(
+                    "  [%s] %s: %s (count=%s)",
+                    issue["severity"].upper(),
+                    issue["type"],
+                    issue["description"],
+                    issue.get("count"),
+                )
+        else:
+            logger.info("Data quality check passed — no issues found.")
+
+    except Exception as e:
+        # The API must never crash because of a bad validation run.
+        logger.error("Data quality check failed to run: %s", e)
+check_and_log_data_quality()

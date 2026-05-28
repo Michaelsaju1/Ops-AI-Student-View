@@ -24,3 +24,12 @@ Thumbs.db
 # Logs
 *.log
 key.json
+
+# Week 2 model & data files restored locally from GCS for API boot
+week2/data/processed/
+
+# Python venv
+week3/.venv/
+week3/__pycache__/
+week3/**/__pycache__/
+*.pyc
